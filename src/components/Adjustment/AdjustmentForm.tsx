@@ -9,28 +9,40 @@ export function AdjustmentForm({ clockRecordId }: { clockRecordId: string }) {
 
   const [reason, setReason] = useState('');
   const [date, setDate] = useState<Date | null>(null);
-  const [newEntryTime, setNewEntryTime] = useState('');
+  const [newTimestamp, setNewTimestamp] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    console.log("date:", date);
+    console.log("newTimestamp string:", newTimestamp);
+
     if (!date) return;
+
+    const generatedDate = newTimestamp
+      ? new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          parseInt(newTimestamp.split(':')[0]),
+          parseInt(newTimestamp.split(':')[1])
+        )
+      : undefined;
+
+    console.log("Date gerada:", generatedDate);
+    console.log("ISO:", generatedDate?.toISOString());
 
     try {
       setLoading(true);
 
       await createAdjustment({
         clockRecordId,
-        date: date.toISOString(), // ISO 8601 certinho
+        date: date.toISOString(),
         reason,
-        newEntryTime: newEntryTime || undefined,
+        newTimestamp: generatedDate?.toISOString(),
       });
 
-      alert('Solicitação enviada!');
-      setReason('');
-      setDate(null);
-      setNewEntryTime('');
     } finally {
       setLoading(false);
     }
@@ -48,8 +60,8 @@ export function AdjustmentForm({ clockRecordId }: { clockRecordId: string }) {
         {
           label: 'Novo horário',
           type: 'time',
-          value: newEntryTime,
-          onChange: (v) => setNewEntryTime(String(v)),
+          value: newTimestamp,
+          onChange: (v) => setNewTimestamp(String(v)),
         },
         {
           label: 'Motivo do ajuste',

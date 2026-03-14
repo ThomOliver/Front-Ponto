@@ -8,6 +8,8 @@ import {
   MoonIcon,
 } from "@heroicons/react/24/outline";
 import { useUIStore } from "@/store/useUIStore";
+import Image from "next/image";
+import Logo from "../../../public/logo.svg";
 
 export default function Header() {
   const { isMenuOpen, isDark, toggleMenu, toggleTheme, initializeTheme } =
@@ -21,9 +23,13 @@ export default function Header() {
     <header className="bg-bg text-text shadow-md fixed top-0 left-0 w-full z-50 px-4">
       <div className="max-w-[1580px] mx-auto px-4 sm:px-6 lg:px-2 h-16 flex items-center justify-between">
         <div className="text-2xl font-bold text-text">
-          <Link href="/" className="cursor-pointer">
-            Oli-Ponto
-          </Link>
+          <Image
+            src={Logo}
+            alt="Logo"
+            width={140}
+            height={140}
+            className="inline-block mr-2"
+          />
         </div>
 
         <div className="flex items-center space-x-4">

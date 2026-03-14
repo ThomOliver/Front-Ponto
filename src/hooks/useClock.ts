@@ -44,7 +44,6 @@ export function useClock() {
     await fetchRecords();
   };
 
-console.log('DashboardClock', dashboardClock);
   const clearClock = () => {
     clearRecords();
   };

@@ -13,23 +13,15 @@ export function AdjustmentList() {
   }, []);
 
   function getRequestedTime(adj: Adjustment) {
-    if (adj.newEntryTime && adj.newEntryTime !== '') {
-      return { label: 'Entrada', value: adj.newEntryTime };
-    }
+    if (!adj.newTimestamp) return null;
 
-    if (adj.newExitTime && adj.newExitTime !== '') {
-      return { label: 'Saída', value: adj.newExitTime };
-    }
-
-    if (adj.newBreakStart && adj.newBreakStart !== '') {
-      return { label: 'Início do intervalo', value: adj.newBreakStart };
-    }
-
-    if (adj.newBreakEnd && adj.newBreakEnd !== '') {
-      return { label: 'Fim do intervalo', value: adj.newBreakEnd };
-    }
-
-    return null;
+    return {
+      label: 'Novo horário',
+      value: new Date(adj.newTimestamp).toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+    };
   }
 
   if (loading) return <p>Carregando ajustes...</p>;

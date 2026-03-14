@@ -37,13 +37,14 @@ export function useAdjustment() {
   };
 
   const createAdjustment = async (data: CreateAdjustmentDTO) => {
+     console.log("PAYLOAD ENVIADO PARA API:", data);
     await api.post('/adjustments', data);
     await fetchAdjustments();
   };
 
   const updateAdjustment = async (
     id: string,
-    data: CreateAdjustmentDTO
+    data: Partial<CreateAdjustmentDTO>
   ) => {
     await api.patch(`/adjustments/${id}`, data);
     await fetchAdjustments();

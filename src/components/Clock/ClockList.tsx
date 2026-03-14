@@ -56,7 +56,7 @@ export function ClockList() {
     if (adj) {
       setSelectedAdjustmentId(adj.id);
       setReason(adj.reason);
-      setNewEntryTime(adj.newEntryTime ?? '');
+      setNewEntryTime(adj.newTimestamp ?? '');
       setStatus(adj.status);
     } else {
       setSelectedAdjustmentId(null);
@@ -81,14 +81,14 @@ export function ClockList() {
           clockRecordId: selectedClockId,
           date: date.toISOString(),
           reason,
-          newEntryTime,
+          newTimestamp: newEntryTime || undefined,
         });
       } else {
         await createAdjustment({
           clockRecordId: selectedClockId,
           date: date.toISOString(),
           reason,
-          newEntryTime: newEntryTime || undefined,
+          newTimestamp: newEntryTime || undefined,
         });
       }
 
@@ -118,8 +118,8 @@ export function ClockList() {
 
             let effectiveTime = new Date(r.timestamp);
 
-            if (adj?.status === 'APPROVED' && adj.newEntryTime) {
-              const [h, m] = adj.newEntryTime.split(':');
+            if (adj?.status === 'APPROVED' && adj.newTimestamp) {
+              const [h, m] = adj.newTimestamp.split(':');
 
               effectiveTime = new Date(r.timestamp);
               effectiveTime.setHours(Number(h));
@@ -140,7 +140,7 @@ export function ClockList() {
                     })}
                   </span>
 
-                  {adj?.status === 'APPROVED' && adj.newEntryTime && (
+                  {adj?.status === 'APPROVED' && adj.newTimestamp && (
                     <span className="ml-2 text-green-400 text-sm">
                       (ajustado)
                     </span>

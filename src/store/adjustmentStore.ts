@@ -8,10 +8,7 @@ export interface Adjustment {
   reason: string;
   status: AdjustmentStatus;
   clockRecordId: string;
-  newEntryTime?: string;
-  newExitTime?: string;
-  newBreakStart?: string;
-  newBreakEnd?: string;
+  newTimestamp?: string;
 
   user: {
     name: string;
@@ -23,10 +20,7 @@ export interface CreateAdjustmentDTO {
   date: string;
   reason: string;
   clockRecordId: string;
-  newEntryTime?: string;
-  newExitTime?: string;
-  newBreakStart?: string;
-  newBreakEnd?: string;
+  newTimestamp?: string;
 }
 
 interface AdjustmentState {
